@@ -8,6 +8,6 @@
 - name: Velocity_start
   ansible.builtin.systemd:
     name: velocity
-    state: started
+    state: restarted
     enabled: true
   become: true
