@@ -1,0 +1,29 @@
+---
+
+- name: Add apt key
+  ansible.builtin.get_url:
+    url: https://apt.corretto.aws/corretto.key
+    dest: /etc/apt/trusted.gpg.d/corretto.asc
+    mode: '0644'
+  become: true
+
+- name: Add apt-repo
+  ansible.builtin.apt_repository:
+    repo: deb https://apt.corretto.aws stable main
+    state: present
+  become: true
+
+- name: Install java
+  ansible.builtin.apt:
+    name: java-21-amazon-corretto-jdk
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: Get jname
+  ansible.builtin.shell: set -eo pipefail; dirname "$(dirname "$(dpkg -L 'java-21-amazon-corretto-jdk' | grep -e bin/java$ | grep -v jre | head -n1)")"
+  args:
+    executable: /bin/bash
+  changed_when: false
+  register: jname

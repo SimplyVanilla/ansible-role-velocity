@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+
+  vars:
+    velocity_heap: 1
+
+  tasks:
+    - name: Import project role
+      ansible.builtin.import_role:
+        name: project

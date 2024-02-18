@@ -1,0 +1,13 @@
+---
+
+- name: Download Velocity
+  ansible.builtin.get_url:
+    url: "\
+      https://api.papermc.io/v2/projects/velocity/versions\
+      /{{ velocity_version }}/builds/{{ velocity_build }}\
+      /downloads/velocity-{{ velocity_version }}-{{ velocity_build }}.jar"
+    dest: "{{ velocity_path }}/velocity-{{ velocity_version }}-{{ velocity_build }}.jar"
+    checksum: '{{ velocity_checksum }}'
+    mode: '0644'
+  become: true
+  become_user: '{{ velocity_user }}'

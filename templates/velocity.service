@@ -1,0 +1,24 @@
+[Unit]
+Description=Velocity Server
+After=network.target
+
+[Service]
+WorkingDirectory={{ velocity_path }}
+EnvironmentFile=/etc/default/velocity
+
+User={{ velocity_user }}
+Group={{ velocity_user }}
+
+Restart=always
+RestartSec=5s
+Type=forking
+
+ExecStart={{ velocity_path }}/server.sh start
+ExecStop={{ velocity_path }}/server.sh stop
+
+{% if velocity_cpu_affinity is defined and velocity_cpu_affinity|length > 0 %}
+CPUAffinity={{ velocity_cpu_affinity|join(',') }}
+{% endif %}
+
+[Install]
+WantedBy=multi-user.target

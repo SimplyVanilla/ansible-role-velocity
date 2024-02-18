@@ -1,0 +1,13 @@
+---
+
+- name: Import pre.yml
+  ansible.builtin.import_tasks: pre.yml
+
+- name: Import java.yml
+  ansible.builtin.import_tasks: java.yml
+
+- name: Include velocity.yml
+  ansible.builtin.include_tasks: velocity.yml
+
+- name: Import config.yml
+  ansible.builtin.import_tasks: config.yml

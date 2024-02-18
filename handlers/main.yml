@@ -1,0 +1,13 @@
+---
+
+- name: Velocity_reload_systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: Velocity_start
+  ansible.builtin.systemd:
+    name: velocity
+    state: started
+    enabled: true
+  become: true

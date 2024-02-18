@@ -1,0 +1,29 @@
+---
+
+- name: Add server.sh
+  ansible.builtin.copy:
+    src: server.sh
+    dest: '{{ velocity_path }}/server.sh'
+    mode: a+x
+  become: true
+  become_user: '{{ velocity_user }}'
+
+- name: Add systemd service
+  ansible.builtin.template:
+    src: velocity.service
+    dest: /lib/systemd/system/velocity.service
+    mode: '0644'
+  become: true
+  notify:
+    - Velocity_reload_systemd
+    - Velocity_start
+
+- name: Add systemd config
+  ansible.builtin.template:
+    src: default.conf
+    dest: /etc/default/velocity
+    mode: '0644'
+  become: true
+  notify:
+    - Velocity_reload_systemd
+    - Velocity_start
