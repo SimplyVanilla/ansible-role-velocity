@@ -1,0 +1,16 @@
+---
+
+- name: Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - acl
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: Create Velocity user
+  ansible.builtin.user:
+    name: '{{ velocity_user }}'
+    shell: /bin/bash
+  become: true

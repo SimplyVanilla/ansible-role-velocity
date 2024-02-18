@@ -1,0 +1,23 @@
+---
+
+galaxy_info:
+  role_name: velocity
+  namespace: simplyvanilla
+  author: Netherwhal
+  description: Install Velocity on a Debian-like system.
+  license: GPLv3
+  min_ansible_version: '2.10'
+  platforms:
+    - name: Ubuntu
+      versions:
+        - jammy
+        - focal
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+  galaxy_tags:
+    - minecraft
+    - velocity
+    - java
+dependencies: []
