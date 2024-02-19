@@ -1,13 +1,25 @@
 ---
 
+- name: List Velocity builds
+  ansible.builtin.uri:
+    url: https://api.papermc.io/v2/projects/velocity/versions/{{ velocity_version }}
+    return_content: true
+  register: velocity_api_builds
+
+- name: Get latest Velocity build
+  ansible.builtin.uri:
+    url: https://api.papermc.io/v2/projects/velocity/versions/{{ velocity_version }}/builds/{{ velocity_api_builds.json.builds | max }}
+    return_content: true
+  register: velocity_api_build
+
 - name: Download Velocity
   ansible.builtin.get_url:
     url: "\
       https://api.papermc.io/v2/projects/velocity/versions\
-      /{{ velocity_version }}/builds/{{ velocity_build }}\
-      /downloads/velocity-{{ velocity_version }}-{{ velocity_build }}.jar"
-    dest: "{{ velocity_path }}/velocity-{{ velocity_version }}-{{ velocity_build }}.jar"
-    checksum: '{{ velocity_checksum }}'
+      /{{ velocity_version }}/builds/{{ velocity_build | default(velocity_api_build.json.build) }}\
+      /downloads/velocity-{{ velocity_version }}-{{ velocity_build | default(velocity_api_build.json.build) }}.jar"
+    dest: "{{ velocity_path }}/velocity-{{ velocity_version }}-{{ velocity_build | default(velocity_api_build.json.build) }}.jar"
+    checksum: '{{ velocity_checksum | default(velocity_api_build.json.downloads.application.sha256) }}'
     mode: '0644'
   become: true
   become_user: '{{ velocity_user }}'

@@ -1,8 +1,6 @@
 ---
 
 velocity_version: '3.3.0-SNAPSHOT'
-velocity_build: 360
-velocity_checksum: 'sha256:4c3c9f660925c8f67c0f08ec22f473ade7226113285c7d7df632ad99ff8e6610'
 
 velocity_user: velocity
 
