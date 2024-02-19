@@ -46,7 +46,7 @@ jobs:
 
       - run: while ! sudo -u velocity screen -list velocity; do sleep 1; done
       - run: sleep 10
-      - run: sudo -u velocity screen -p 0 -S velocity -X eval 'stuff "velocity version"\015'
+      - run: sudo -u velocity screen -p 0 -S velocity -X eval 'stuff "velocity info"\015'
       - run: sleep 2
 
       - run:

@@ -19,7 +19,7 @@
       /{{ velocity_version }}/builds/{{ velocity_build | default(velocity_api_build.json.build) }}\
       /downloads/velocity-{{ velocity_version }}-{{ velocity_build | default(velocity_api_build.json.build) }}.jar"
     dest: "{{ velocity_path }}/velocity-{{ velocity_version }}-{{ velocity_build | default(velocity_api_build.json.build) }}.jar"
-    checksum: '{{ velocity_checksum | default(velocity_api_build.json.downloads.application.sha256) }}'
+    checksum: sha256:{{ velocity_checksum | default(velocity_api_build.json.downloads.application.sha256) }}
     mode: '0644'
   become: true
   become_user: '{{ velocity_user }}'
