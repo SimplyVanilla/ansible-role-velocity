@@ -11,3 +11,4 @@
     state: restarted
     enabled: true
   become: true
+  when: velocity_restart_on_change
